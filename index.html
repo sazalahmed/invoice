@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Custom Invoice</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+
+    <style>
+        /* global css start */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        ol,
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 0;
+            color: var(--colorBlack);
+        }
+
+        p,
+        span {
+            font-size: 15px;
+            font-weight: 400;
+            margin: 0;
+            color: var(--paraColor);
+        }
+
+        body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: var(--bodyFont);
+        }
+
+        img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 20px;
+            outline: none;
+            resize: none;
+            border: 1px solid var(--borderColor);
+            border-radius: 0;
+            font-weight: 400;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            -o-border-radius: 0;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #787882;
+        }
+
+        button {
+            border: none;
+        }
+
+        :root {
+            --colorPrimary: #356DF1;
+            --colorBlack: #1E1E2F;
+            --colorWhite: #ffffff;
+            --paraColor: #787882;
+            --borderColor: rgba(30, 30, 47, 0.10);
+            --bodyFont: "Roboto", sans-serif;
+        }
+
+        /* global css end */
+
+        /* invoice css start */
+        .invoice_area {
+            padding: 20px;
+        }
+
+        .wsus__invoice_top {
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .wsus__invoice_logo {
+            width: 150px;
+        }
+
+        .wsus__invoice_heading {
+            text-align: end;
+            position: relative;
+        }
+
+        .wsus__invoice_heading h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: rgba(23, 23, 24, 0.50);
+            padding-left: 50px;
+        }
+
+        .wsus__invoice_description {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 0px;
+        }
+
+        .wsus__invoice_address,
+        .wsus__invoice_date {
+            max-width: 500px;
+        }
+
+        .wsus__invoice_description h4 {
+            font-size: 16px;
+            font-weight: 400;
+            text-transform: capitalize;
+            margin-bottom: 15px;
+        }
+
+        .wsus__invoice_address h5 {
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .wsus__invoice_address p {
+            margin-top: 5px;
+        }
+
+        .wsus__invoice_date {
+            text-align: end;
+        }
+
+        .wsus__invoice_date h5 {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .wsus__invoice_date h5 span {
+            font-size: 15px;
+            font-weight: 400;
+            display: inline-block;
+            min-width: 120px;
+            margin-left: 10px;
+        }
+
+        .wsus__invoice_table .table {
+            margin: 0;
+            border-right: 1px solid var(--borderColor);
+            border-left: 1px solid var(--borderColor);
+        }
+
+        .wsus__invoice_table .table tr:first-child {
+            border-top: 1px solid var(--borderColor);
+        }
+
+        .wsus__invoice_table .table tr th {
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: capitalize;
+            border-top: none !important;
+            background: var(--colorBlack);
+            color: var(--colorWhite);
+        }
+
+        .wsus__invoice_table .table tr th,
+        .wsus__invoice_table .table tr td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--borderColor);
+            min-width: 100px;
+            border-right: 1px solid var(--borderColor);
+        }
+
+        .wsus__invoice_table table tfoot tr td:first-child {
+            text-align: right;
+        }
+
+        .wsus__invoice_table .print_btn {
+            text-transform: capitalize;
+            color: var(--colorWhite);
+            background: var(--colorPrimary);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 11px 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 1px solid transparent;
+            border-right: 1px solid transparent;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            z-index: 1;
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        .wsus__invoice_table .print_btn:hover {
+            background: var(--colorBlack);
+        }
+
+        /* invoice css end */
+    </style>
+</head>
+
+<body>
+
+    <!--===========================
+        INVOICE START
+    ============================-->
+    <div class="invoice_area">
+        <div class="wsus__invoice_top">
+            <div class="wsus__invoice_logo">
+                <img src="./logo.png" alt="logo" class="img-fluid w-100">
+            </div>
+            <div class="wsus__invoice_heading">
+                <h2>INVOICE</h2>
+            </div>
+        </div>
+
+        <div class="wsus__invoice_description">
+            <div class="wsus__invoice_address">
+                <h4>Invoice to:</h4>
+                <h5>Smith Jhon</h5>
+                <p>7232 Broadway Suite 3087 Madison Heights, 57256</p>
+                <p>+96584721422145</p>
+                <p>example@gmail.com</p>
+            </div>
+            <div class="wsus__invoice_date">
+                <h5>Invoice No#<span>565487</span></h5>
+                <h5>Date<span>04 / 05 / 2025</span></h5>
+            </div>
+        </div>
+
+        <div class="wsus__invoice_table">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="serial">
+                                SL
+                            </th>
+                            <th class="description">
+                                Item Description
+                            </th>
+                            <th class="price">
+                                Price
+                            </th>
+                            <th class="quantity">
+                                Quantity
+                            </th>
+                            <th class="total">
+                                Total
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>1</p>
+                            </td>
+                            <td class="description">
+                                <p>HTML Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$80.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>2</p>
+                            </td>
+                            <td class="total">
+                                <p>$160.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>2</p>
+                            </td>
+                            <td class="description">
+                                <p>PHP Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$140.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>1</p>
+                            </td>
+                            <td class="total">
+                                <p>$140.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>3</p>
+                            </td>
+                            <td class="description">
+                                <p>JAVA Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$160.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>2</p>
+                            </td>
+                            <td class="total">
+                                <p>$320.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>4</p>
+                            </td>
+                            <td class="description">
+                                <p>C++ Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$220.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>1</p>
+                            </td>
+                            <td class="total">
+                                <p>$220.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>5</p>
+                            </td>
+                            <td class="description">
+                                <p>HTML Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$80.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>2</p>
+                            </td>
+                            <td class="total">
+                                <p>$160.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>6</p>
+                            </td>
+                            <td class="description">
+                                <p>PHP Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$140.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>1</p>
+                            </td>
+                            <td class="total">
+                                <p>$140.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>7</p>
+                            </td>
+                            <td class="description">
+                                <p>JAVA Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$160.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>2</p>
+                            </td>
+                            <td class="total">
+                                <p>$320.00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="serial">
+                                <p>8</p>
+                            </td>
+                            <td class="description">
+                                <p>C++ Course</p>
+                            </td>
+                            <td class="price">
+                                <p>$220.00</p>
+                            </td>
+                            <td class="quantity">
+                                <p>1</p>
+                            </td>
+                            <td class="total">
+                                <p>$220.00</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Total:</td>
+                            <td>$500.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Tax:</td>
+                            <td>$120.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><b>Subtotal:</b></td>
+                            <td><b>$120.00</b></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <a class="print_btn" href="#">print</a>
+        </div>
+
+    </div>
+    <!--===========================
+        INVOICE END
+    ============================-->
+
+</body>
+
+</html>
